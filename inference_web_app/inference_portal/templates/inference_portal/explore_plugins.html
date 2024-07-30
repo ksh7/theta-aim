@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="row mb-4 mt-2">
+  <div class="col-md-10 offset-md-1">
+    <div class="row mb-4">
+      <div class="col-md-12">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <h1 class="card-title"><strong>Plugins for AI Models - ThetaAIM</strong></h1>
+            <p class="card-text">Explore and purchase AI model based plugins as per your business requirements</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-10 offset-md-1">
+    <div class="row mb-4">
+      <div class="row">
+        {% for app in inference_apps %}
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="card-header"><i class="bi bi-file-earmark-zip"></i> {{app.name}} (Plugins)</div>
+              <p class="card-text"><strong>Model Name: </strong> {{app.name}}</p>
+              <p class="card-text"><strong>Features: </strong> {{app.description}}</p>
+              <p class="card-text"><strong>Seller: </strong> {{app.user.name}}</p>
+              <p class="card-text"><strong>Price:</strong> {{app.plugin_price_per_use}} USD / call</p>
+              <p class="card-text"><strong>Purchase Plan:</strong> {% widthratio app.plugin_price_per_use 1 100 %} USD (100 credits * {{app.plugin_price_per_use}} price) </p>
+              <p class="card-text"><strong>Plugins Available:</strong>
+              {% for plugin in app.list_of_plugins.all %}<li>{{plugin.name}} <a href="{% url 'checkout_page' %}?model_inference_id={{app.id}}&service_name=plugin&service_type={{plugin.name}}&amount={% widthratio app.plugin_price_per_use 1 100 %}" class="btn btn-outline-primary btn-sm my-1">Buy {{plugin.name}} <i class="bi bi-cart"></i></a></li>{% endfor %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  
+  {% endblock%}

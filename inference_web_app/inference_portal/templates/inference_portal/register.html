@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+
+      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+              <div class="d-flex justify-content-center py-4">
+                <a href="/" class="logo d-flex align-items-center w-auto">
+                  <img src="static/img/ai-logo-2.jpg" alt="">
+                  <span class="d-none d-lg-block">Register - ThetaAIM</span>
+                </a>
+              </div><!-- End Logo -->
+
+              <div class="card mb-3">
+
+                <div class="card-body">
+
+                  <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0 fs-4">Register</h5>
+                  </div>
+
+                  {% if messages %}
+                {% for message in messages %}
+                <div class="col-md-10 offset-md-1">
+                  <div class="alert alert-{{ message.tags }}" role="alert">
+                    {{ message }}
+                  </div>
+                </div>
+                {% endfor %}
+              {% endif %}
+
+                  <form class="row g-3 needs-validation" action="" method="POST">
+                    {% csrf_token %}
+                    <div class="col-12">
+                        <label for="yourUsername" class="form-label">Name</label>
+                        <div class="input-group has-validation">
+                          <input type="text" class="form-control" name="name" placeholder="your name" required aria-describedby="emailHelp">
+                        </div>
+                      </div>
+                    <div class="col-12">
+                      <label for="yourUsername" class="form-label">Email</label>
+                      <div class="input-group has-validation">
+                        <input type="email" class="form-control" name="email" placeholder="your email" required aria-describedby="emailHelp">
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <label for="yourUsername" class="form-label">About</label>
+                      <div class="input-group has-validation">
+                        <textarea class="form-control" name="about" placeholder="about" required></textarea>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="yourPassword" class="form-label">Password</label>
+                      <input type="password" class="form-control"  name="password" placeholder="password" required>
+                      <div class="invalid-feedback">Please enter your password!</div>
+                    </div>
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100" type="submit">Sign Up</button>
+                    </div>
+                    <div class="col-12">
+                      <p class="small mb-0">Have an account? <a href="/login">login</a></p>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+
+              <div class="credits">
+                Powered by <a href="">ThetaAIM</a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+
+    {% endblock%}

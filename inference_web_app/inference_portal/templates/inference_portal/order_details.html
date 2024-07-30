@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<div class="row g-0">
+  <div class="col-md-10 offset-md-1">
+    <div class="container my-3">
+      <div class="row align-items-center">
+        <div class="col">
+          <h1>My Order (ID # {{order.id}})</h1>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="row g-0">
+              <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-menu-button-wide"></i> {{order.model_inference.name}}</h5>
+                <p class="card-text"><strong>Features:</strong> {{order.model_inference.description}}</p>
+                <p class="card-text"><strong>Category:</strong> {{order.model_inference.category}}</p>
+                <p class="card-text"><strong>Terms & Conditions:</strong> {{order.model_inference.terms}}</p>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          {% if order.service_name == 'web_app' %}
+            <div class="card">
+              <div class="card-body">
+                <div class="card-header">Your Web App</div>
+                <p class="card-text"><strong>Price:</strong> {{order.model_inference.web_app_price_per_use}}
+                  USD / call</p>
+                <p class="card-text"><strong>Purchase Amount:</strong> {{order.amount}} USD</p>
+                <p class="card-text"><strong>Access:</strong> <a href="{{order.model_inference.web_app_access_url}}"
+                    target="_blank" class="btn btn-sm btn-link">Visit Web App <i class="bi bi-box-arrow-up-right"></i></a>
+                </p>
+                <p class="card-text"><strong>Need  Support?:</strong> contact@theta-aim.com</p>
+              </div>
+          </div>
+          {% endif %}
+          {% if order.service_name == 'plugin' %}
+            <div class="card">
+              <div class="card-body">
+                <div class="card-header">Your Plugins</div>
+                <p class="card-text">
+                <p class="card-text"><strong>Price:</strong> {{order.model_inference.plugin_price_per_use}}
+                  USD / call</p>
+                <p class="card-text"><strong>Purchase Amount:</strong> {{order.amount}} USD</p>
+                <p class="card-text"><strong>Download:</strong>
+                  {% for plugin in order.model_inference.modelinferenceplugin_set.all %}
+                  {% if plugin.name == order.service_type %}
+                  <a href="/{{plugin.file_path}}" class="btn btn-sm btn-link">{{plugin.name}} <i
+                      class="bi bi-file-earmark-zip"></i></a>
+                  {% endif %}
+                  {% endfor %}
+                  <p class="card-text"><strong>Need  Support?:</strong> contact@theta-aim.com</p>
+              </div>
+          </div>
+          {% endif %}
+          {% if order.service_name == 'rest_api' %}
+            <div class="card">
+              <div class="card-body">
+                <div class="card-header">Your REST APIs</div>
+                <p class="card-text">
+                <p class="card-text"><strong>Price:</strong> {{order.model_inference.api_price_per_use}} USD
+                  / call</p>
+                <p class="card-text"><strong>Purchase Amount:</strong> {{order.amount}} USD</p>
+                <hr>
+                <p class="card-text"><strong>API Endpoint: </strong> <code>{{order.restapi_set.all.0.api_endpoint}}</code>
+                <p class="card-text"><strong>API Key: </strong> <code>{{order.restapi_set.all.0.api_key}}</code> </p>
+                <p class="card-text"><strong>API Secret: </strong> <code>{{order.restapi_set.all.0.api_secret}}</code> </p>
+                <p class="card-text"><strong>Description: </strong> {{order.restapi_set.all.0.description}} </p>
+                </p>
+                <hr>
+                <p class="card-text"><strong>Need  Support?:</strong> contact@theta-aim.com</p>
+            </div>
+          </div>
+          {% endif %}
+          {% if order.service_name == 'binary' %}
+            <div class="card">
+              <div class="card-body">
+                <div class="card-header">Your Binaries</div>
+                <p class="card-text">
+                <p class="card-text"><strong>Price:</strong> {{order.model_inference.binary_image_price}}
+                  USD</p>
+                <p class="card-text"><strong>Purchase Amount:</strong> {{order.amount}} USD</p>
+                <p class="card-text"><strong>Binary Image:</strong> <a href="{{order.model_inference.binary_image}}"
+                    target="_blank" class="btn btn-link">Download Binary <i class="bi bi-box-arrow-up-right"></i></a>
+                    <p class="card-text"><strong>One-Click Deploy:</strong> <a href="#" class="btn btn-outline-primary btn-sm rounded-pill">To Theta EdgeCloud <i class="bi bi-cloud-arrow-up"></i></a> <a href="#" class="btn rounded-pill btn-outline-primary btn-sm">To AWS <i class="bi bi-cloud-arrow-up"></i></a>
+                    <p class="card-text"><strong>Need  Support?:</strong> contact@theta-aim.com</p>
+              </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    
+
+
+  </div>
+</div>
+{% endblock%}

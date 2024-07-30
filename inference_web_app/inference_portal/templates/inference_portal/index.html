@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="row mb-4 mt-2">
+  <div class="col-md-10 offset-md-1">
+    <div class="row mb-4">
+      <div class="col-md-12">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <h3 class="card-title">ThetaAIM - Theta AI Inference Marketplace</h3>
+            <p class="card-text">Your ultimate AI/ML models and inferences hub for decentralized Theta EdgeCloud!</p>
+            <div class="row">
+              <div class="col-md-6">
+                <h3 class="card-title"><strong>👨‍💻 For AI/ML Developers</strong></h3>
+                <p class="card-text">You just focus on building and training AI/ML models, we'll take care of rest.</p>
+                <p class="card-text">Automatically convert your AI/ML inferences into Web Apps, Plugins, APIs.</p>
+                <p class="card-text">Seamless billing management, rolling updates, and API throttling.</p>
+
+              </div>
+              <div class="col-md-6">
+                <h3 class="card-title"><strong>👨‍💼 For End Users</strong></h3>
+                <p class="card-text">Explore specialized AI/ML models like medical, financial fraud, yoga, and more.</p>
+                <p class="card-text">Use AI/ML models as Web App, Binaries, REST APIs, Wordpress Plugins, etc.</p>
+                <p class="card-text">One-click binary deployment to your private ThetaEdge Cloud or AWS.</p>
+              </div>
+            </div>
+            <div class="mt-5">
+              <a href="{% url 'explore_apps' %}" class="btn btn-outline-primary btn-lg mr-2"><i class="bi bi-menu-button-wide"></i> Explore AI Apps</a>
+              <a href="{% url 'explore_plugins' %}" class="btn btn-outline-primary btn-lg mr-2"><i class="bi bi-file-earmark-zip"></i> Explore AI Plugins</a>
+              <a href="{% url 'explore_binaries' %}" class="btn btn-outline-primary btn-lg mr-2"><i class="bi bi-file-binary"></i> Explore AI Binaries</a>
+              <a href="{% url 'explore_rest_apis' %}" class="btn btn-outline-primary btn-lg mr-2"><i class="bi bi-link"></i> Explore REST APIs</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+</div>
+</div>
+
+
+<div class="row mb-4">
+  <div class="col-md-10 offset-md-1">
+    <div class="row mb-4">
+      <div class="row">
+
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <h5 class="card-title">🤖 Specialized AI/ML Inferences Marketplace</h5>
+              <p class="card-text">
+                Browse and explore inferences for medical, financial fraud, yoga, and more.
+              </p>
+              <p class="card-text">Accelerate your business with AI-powered insights. Our marketplace offers a curated collection of specialized AI/ML inferences. From detecting financial fraud to improving patient outcomes or optimizing yoga practices, find the perfect model to solve your challenges. Simply browse, select, and integrate. Start innovating today.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <h5 class="card-title">⚙️ AI Plugins Generator</h5>
+              <p class="card-text">
+                Generate plugins for WordPress, Shopify, and Salesforce to distribute your models.
+              </p>
+              <p class="card-text">With our Plugins Generator, effortlessly create seamless integrations for WordPress, Shopify, and Salesforce. Expand your model's reach, acquire new customers, and generate revenue. No coding required. Focus on building exceptional AI, while we handle the plugin development. Start generating today.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <h5 class="card-title">🛠️ Seemless AI Model Management</h5>
+              <p class="card-text">
+                Billing, rolling changes, and throttling for seamless model management.
+              </p>
+              <p class="card-text">
+                Our platform offers comprehensive management solutions. Automate billing, effortlessly deploy model updates with rolling changes, and optimize costs with precise throttling. Streamline your operations, reduce errors, and maximize performance. Focus on model development, while we handle the management.
+              </p>
+            </div>
+          </div>
+        </div>
+  
+        
+  
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <h5 class="card-title">📄 Distribute Inference Binaries</h5>
+              <p class="card-text">
+                Deploy inference binaries on Theta or AWS/GCP with one click for clients.
+              </p>
+              <p class="card-text">
+                Our platform simplifies distribution by converting your models into inference binaries. With a single click, deploy them on Theta or your preferred cloud (AWS/GCP). Reach a wider audience, reduce deployment time, and focus on model development. Ensure optimal performance and scalability across different environments.
+              </p>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  </div>
+
+{% endblock%}

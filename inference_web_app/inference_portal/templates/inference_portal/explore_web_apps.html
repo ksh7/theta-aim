@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="row mb-4 mt-2">
+  <div class="col-md-10 offset-md-1">
+    <div class="row mb-4">
+      <div class="col-md-12">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <h1 class="card-title"><strong>Web Apps for AI Models - ThetaAIM</strong></h1>
+            <p class="card-text">Explore and purchase AI model based web apps as per your business requirements</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-10 offset-md-1">
+    <div class="row mb-4">
+      <div class="row">
+        {% for app in inference_apps %}
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="card-header"><i class="bi bi-menu-button-wide"></i> {{app.name}} (Web Apps)</div>
+              <p class="card-text"><strong>Model Name: </strong> {{app.name}}</p>
+              <p class="card-text"><strong>Features: </strong> {{app.description}}</p>
+              <p class="card-text"><strong>Seller: </strong> {{app.user.name}}</p>
+              <p class="card-text"><strong>Price:</strong> {{app.web_app_price_per_use}} USD / call</p>
+              <p class="card-text"><strong>Demo Access:</strong> <a href="{{app.web_app_access_url}}" target="_blank"
+                  class="btn btn-sm btn-link">Visit Web App <i class="bi bi-box-arrow-up-right"></i></a></p>
+              <p class="card-text"><strong>Purchase Plan:</strong> {% widthratio app.web_app_price_per_use 1 100 %} USD (100 credits * {{app.web_app_price_per_use}} price) </p>
+              <a href="{% url 'checkout_page' %}?model_inference_id={{app.id}}&service_name=web_app&service_type=web_app&amount={% widthratio app.web_app_price_per_use 1 100 %}" class="btn btn-outline-primary btn-sm">Buy Now <i class="bi bi-cart"></i></a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  
+  {% endblock%}

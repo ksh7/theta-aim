@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row mt-2">
+  <div class="row">
+    <div class="card">
+      <div class="card-body text-center">
+        <h1 class="mt-3"><i class="bi bi-cart-check"></i> Checkout Page</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if not request.user.paymentaddress.tfuel_address %}
+<div class="row my-2">
+  <div class="col-md-8 offset-md-2">
+
+    <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">
+      You don't have a payment address! Please <a href="{% url 'payments' %}">update here</a>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+{% endif %}
+<div class="row mt-2">
+    <div id="tfuel-alert">
+    </div>
+</div>
+<div class="row mb-4">
+  <div class="col-md-12">
+    <div class="row mb-4">
+      <div class="row">
+        <div class="col-md-7">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Transaction Details</h4>
+                  <p class="card-text"><strong>AI Model Inference:</strong> {{model_inference.name}} </p>
+                  <p class="card-text"><strong>AI Model Details:</strong> {{model_inference.description}} </p>
+                  <p class="card-text"><strong>Provided By:</strong> {{model_inference.user.name}} </p>
+                  <p class="card-text"><strong>Service/Module Name:</strong> {{service_name}} </p>
+                  <p class="card-text"><strong>Service/Module Type:</strong> {{service_type}} </p>
+                  <p class="card-text"><strong>Cost:</strong> {{amount}} USD</p>
+                  <p class="card-text"><strong>Terms & Conditions:</strong> {{model_inference.terms}}</p>
+                </div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title">Make TFUEL Transaction</h5>
+              
+              <p class="card-text"><strong>Pay To (Seller): </strong> {{model_inference.user.paymentaddress.tfuel_address}} </p>
+              <p class="card-text"><strong>Pay From (You): </strong> {{buying_user.paymentaddress.tfuel_address}} </p>
+              <p class="card-text"><strong>Amount: </strong> {{amount}} USD </p>
+              
+              <a href="https://wallet.thetatoken.org/wallet/tokens/theta" target="_blank" class="btn btn-outline-primary btn-sm">Open Theta Web Wallet <i class="bi bi-arrow-clockwise"></i></a>
+          <a class="btn btn-outline-secondary btn-sm" hx-indicator="#spinner"  hx-get="{% url 'check_tfuel_transaction' %}?model_inference_id={{model_inference.id}}&service_name={{service_name}}&service_type={{service_type}}&amount={{amount}}" hx-trigger="click" hx-target="#tfuel-alert" hx-swap="innerHTML">Check Transaction <i class="bi bi-arrow-clockwise"></i></a>
+            
+          <div class="spinner-border htmx-indicator" id="spinner" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+          </div>
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title">Make USD Transaction</h5>
+              <p class="card-text"><strong>Pay To (Seller): </strong> {{model_inference.user.paymentaddress.bank_address}} </p>
+              <p class="card-text"><strong>Amount: </strong> {{amount}} USD </p>
+              <a href="https://wallet.thetatoken.org/wallet/tokens/theta" target="_blank" class="btn btn-outline-primary btn-sm">Open Bank Checkout <i class="bi bi-arrow-clockwise"></i></a>
+              <button class="btn btn-outline-secondary btn-sm">Check Transaction <i class="bi bi-arrow-clockwise"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock%}

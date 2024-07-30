@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<div class="row g-0">
+  <div class="col-md-10 offset-md-1">
+    <div class="container my-3">
+      <div class="row align-items-center">
+        <div class="col">
+          <h1>My Model Inference Apps</h1>
+        </div>
+        <div class="col-auto">
+          <a href="{% url 'model_inference_app_create' %}" class="btn btn-outline-primary rounded-pill"><i
+              class="bi bi-plus"></i> Add New App </a>
+        </div>
+      </div>
+      {% if not request.user.paymentaddress.tfuel_address %}
+<div class="row my-2">
+  <div class="col-md-8 offset-md-2">
+    <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">
+      You don't have a payment address! Please <a href="{% url 'payments' %}">update here</a>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+{% endif %}
+    </div>
+    {% for app in inference_apps %}
+    <div class="card mb-1 mt-5">
+      <div class="row g-0">
+        <div class="col-md-1">
+          <i class="bi bi-menu-button-wide mx-3" style="font-size: 70px;"></i>
+        </div>
+        <div class="col-md-11">
+          <div class="card-body">
+            <h5 class="card-title">{{app.name}} <a href="{% url 'model_inference_app_edit' app.id %}"
+                class="btn btn-sm btn-outline-primary rounded-pill"><i class="bi bi-pencil"></i> Edit App</a></h5>
+            <p class="card-text"><strong>Features:</strong> {{app.description}}</p>
+            <p class="card-text"><strong>Category:</strong> {{app.category}}</p>
+            <p class="card-text"><strong>Terms & Conditions:</strong> {{app.terms}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="row d-flex align-items-stretch">
+        <div class="col-md-3">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="card-header">Web App</div>
+              <p class="card-text">
+                {% if app.release_as_web_app %}
+                <p class="card-text"><strong>Price:</strong> {{app.web_app_price_per_use}} USD / call</p>
+              <p class="card-text"><strong>Access:</strong> <br/><a href="{{app.web_app_access_url}}" target="_blank"
+                  class="btn btn-sm btn-link">Visit Web App <i class="bi bi-box-arrow-up-right"></i></a></p>
+              
+              {% else %}
+              Web app not released!
+              {% endif %}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="card-header">Plugins Available</div>
+              <p class="card-text">
+                {% if app.release_as_plugin %}
+                <p class="card-text"><strong>Price:</strong> {{app.plugin_price_per_use}} USD / call</p>
+                <p class="card-text"><strong>Download:</strong> <br/>
+                {% for plugin in app.modelinferenceplugin_set.all %}
+                <a href="/{{plugin.file_path}}" class="btn btn-sm btn-link">{{plugin.name}} <i
+                    class="bi bi-file-earmark-zip"></i></a>
+                {% endfor %}
+              {% else %}
+              No plugins released!
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card card-border h-100">
+            <div class="card-body">
+              <div class="card-header">REST APIs</div>
+              <p class="card-text">
+                {% if app.release_as_api %}
+                <p class="card-text"><strong>Price:</strong> {{app.api_price_per_use}} USD / call</p>
+              <p class="card-text"><strong>Sample APIs: <br/></strong> <a href="#" target="_blank" class="btn btn-link">View
+                  APIs <i class="bi bi-box-arrow-up-right"></i></a> </p>
+              
+              {% else %}
+              REST APIs not released!
+              {% endif %}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="card-header">Binaries</div>
+              <p class="card-text">
+                {% if app.release_as_binary %}
+                <p class="card-text"><strong>Price:</strong> {{app.binary_image_price}} USD</p>
+              <p class="card-text"><strong>Binary Image:</strong> <a href="{{app.binary_image}}" target="_blank"
+                  class="btn btn-link">Download Binary <i class="bi bi-box-arrow-up-right"></i></a></p>
+              
+              {% else %}
+              Inference binaries not released!
+              {% endif %}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+
+  </div>
+</div>
+{% endblock%}

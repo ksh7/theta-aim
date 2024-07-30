@@ -1,0 +1,29 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      DEBUG: "True"
+      DJANGO_DB_HOST: db
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: inference_portal
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass1234
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+volumes:
+  pg_data:

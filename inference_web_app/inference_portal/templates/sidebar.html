@@ -1,0 +1,82 @@
+<!-- ======= Sidebar ======= -->
+{% load static %}
+{% if request.user.is_authenticated %}
+<aside id="sidebar" class="sidebar">
+
+  <ul class="sidebar-nav" id="sidebar-nav">
+    <li class="nav-item">
+      <a class="nav-link {% if not request.path == '/explore_apps' %} collapsed {% endif %}" href="{% url 'explore_apps' %}">
+        <i class="bi bi-menu-button-wide"></i>
+        <span>Explore AI Apps</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if not request.path == '/explore_plugins' %} collapsed {% endif %}" href="{% url 'explore_plugins' %}">
+        <i class="bi bi-file-earmark-zip"></i>
+        <span>Explore AI Plugins</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if not request.path == '/explore_rest_apis' %} collapsed {% endif %}" href="{% url 'explore_rest_apis' %}">
+        <i class="bi bi-code-slash"></i>
+        <span>Explore REST APIs</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if not request.path == '/explore_binaries' %} collapsed {% endif %}" href="{% url 'explore_binaries' %}">
+        <i class="bi bi-inboxes"></i>
+        <span>Explore Inference Binaries</span>
+      </a>
+    </li>
+    {% if request.user.profile_type == 'developer' %}
+    <li class="nav-heading">Developer Console</li>
+    <li class="nav-item">
+      <a class="nav-link  {% if not request.path == '/dashboard' %} collapsed {% endif %}" href="{% url 'dashboard' %}">
+        <i class="bi bi-grid"></i>
+        <span>My Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link  {% if not request.path == '/model_inference_apps' %} collapsed {% endif %}" data-bs-target="#route-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-cpu"></i><span>My Model Inferences</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="route-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="{% url 'model_inference_app_create' %}">
+            <i class="bi bi-plus"></i><span>Add Inference</span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'model_inference_apps' %}">
+            <i class="bi bi-grid"></i><span>All Inferences</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    {% endif %}
+    
+
+    <li class="nav-heading">Settings</li>
+    <li class="nav-item">
+      <a class="nav-link  {% if not request.path == '/my_purchase_orders' %} collapsed {% endif %}" href="{% url 'my_purchase_orders' %}">
+        <i class="bi bi-cart"></i>
+        <span>My Orders</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link  {% if not request.path == '/payments' %} collapsed {% endif %}" href="{% url 'payments' %}">
+        <i class="bi bi-currency-dollar"></i>
+        <span>My Payments</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link  {% if not request.path == '/profile_settings' %} collapsed {% endif %}" href="{% url 'profile_settings' %}">
+        <i class="bi bi-gear"></i>
+        <span>My Profile</span>
+      </a>
+    </li><!-- End F.A.Q Page Nav -->
+
+  </ul>
+
+</aside><!-- End Sidebar-->
+{% endif %}
